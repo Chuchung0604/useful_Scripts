@@ -6,6 +6,7 @@ CH4$Date
 
 # 坐標軸
 y=bquote(Nitrous~oxide~emmision~"(g"~N~ha^-1~d^-1~")"))
+ labs(y=bquote(Shoot~dry~weight~"(g"~plant^-1~")"))
 
 
 # 排序
