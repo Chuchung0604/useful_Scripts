@@ -27,3 +27,17 @@ lettuceDW <- all %>% group_by(TrtID, TrtName,Town,Date0, Date, DAT, loc,transPla
             GDD0 = mean(GDD0), EDD0 = mean(EDD0), GDD026=mean(GDD026),
             .groups = 'drop')  %>%
   as.data.frame()
+
+## ggplot2 畫圖
+ggplot()+
+  geom_point(data=peanutGHG, aes(x=date, y=N2O_mean,shape=Trt,color=Trt))+
+  geom_line(data=peanutGHG,aes(x=date,y=N2O_mean, linetype=Trt,color=Trt))+
+  geom_errorbar(data=peanutGHG,aes(x=date,ymax=N2O_mean+N2O_sd, ymin=N2O_mean-N2O_sd))+
+  geom_text(aes(x=fertPeanut[1],y=-50,label="F"),color="red")+
+  geom_text(aes(x=fertPeanut[2],y=-50,label="F"),color="red")+
+  geom_text(aes(x=irrigationEvent[1],y=-50,label="W"),color="blue")+
+  geom_text(aes(x=irrigationEvent[2],y=-50,label="W"),color="blue")+
+ labs(y=bquote(N2O~flux~"("~mu~g~m^-2~h^-1~")"))+
+  theme_bw()+
+  geom_linerange(data=wea,aes(x=date,ymin = 500-Rain, ymax=500),fill="blue")+
+  scale_y_continuous( sec.axis = sec_axis(trans=~ (500- .)*1, name ="Rain (mm)"))
