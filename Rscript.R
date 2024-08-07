@@ -41,3 +41,15 @@ ggplot()+
   theme_bw()+
   geom_linerange(data=wea,aes(x=date,ymin = 500-Rain, ymax=500),fill="blue")+
   scale_y_continuous( sec.axis = sec_axis(trans=~ (500- .)*1, name ="Rain (mm)"))
+
+## ggplot2 無底線
+ggplot(df)+
+  geom_point(aes(x=headDW_mean,y=headDW*1e6*1e-4/6.6,shape=CropNo), size=3)+
+  geom_errorbarh(aes(xmin=headDW_mean-headDW_sd, xmax=headDW_mean+headDW_sd, y=headDW*1e6*1e-4/6.6),height=1)+
+  geom_abline(slope=1)+xlim(0,30)+ylim(0,30)+
+  labs(x=bquote(Measured~head~dry~weight~"(g"~plant^-1~")"),
+       y=bquote(Simulated~head~dry~weight~"(g"~plant^-1~")"))+  theme_bw()+
+  theme(axis.line = element_line(color='black'),
+    plot.background = element_blank(),
+    panel.grid.minor = element_blank(),
+    panel.grid.major = element_blank())
