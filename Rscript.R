@@ -28,7 +28,7 @@ lettuceDW <- all %>% group_by(TrtID, TrtName,Town,Date0, Date, DAT, loc,transPla
             .groups = 'drop')  %>%
   as.data.frame()
 
-## ggplot2 畫圖
+## ggplot2 畫圖 溫室氣體氣象
 ggplot()+
   geom_point(data=peanutGHG, aes(x=date, y=N2O_mean,shape=Trt,color=Trt))+
   geom_line(data=peanutGHG,aes(x=date,y=N2O_mean, linetype=Trt,color=Trt))+
@@ -49,6 +49,21 @@ ggplot(df)+
   geom_abline(slope=1)+xlim(0,30)+ylim(0,30)+
   labs(x=bquote(Measured~head~dry~weight~"(g"~plant^-1~")"),
        y=bquote(Simulated~head~dry~weight~"(g"~plant^-1~")"))+  theme_bw()+
+  theme(axis.line = element_line(color='black'),
+    plot.background = element_blank(),
+    panel.grid.minor = element_blank(),
+    panel.grid.major = element_blank())
+
+## 設定點和線的樣式
+LINES <- c("1" = "solid", "2" = "dotted", "3" = "longdash")
+
+ggplot()+geom_point(data=data, aes(x=DAT,y=shoot_mean,shape=season))+
+  scale_shape_manual(values=c(16, 17, 0))+
+  geom_line(data=sim, aes(x=days,y=shootDW,linetype=season))+
+  scale_linetype_manual(values = LINES)+
+  labs(x="Days after transplanting",       
+       y=bquote(Shoot~dry~weight~"(g"~plant^-1~")")) +
+  theme_bw()+
   theme(axis.line = element_line(color='black'),
     plot.background = element_blank(),
     panel.grid.minor = element_blank(),
