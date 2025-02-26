@@ -47,8 +47,8 @@ ggplot(df)+
   geom_point(aes(x=headDW_mean,y=headDW*1e6*1e-4/6.6,shape=CropNo), size=3)+
   geom_errorbarh(aes(xmin=headDW_mean-headDW_sd, xmax=headDW_mean+headDW_sd, y=headDW*1e6*1e-4/6.6),height=1)+
   geom_abline(slope=1)+xlim(0,30)+ylim(0,30)+
-  labs(x=bquote(Measured~head~dry~weight~"(g"~plant^-1~")"),
-       y=bquote(Simulated~head~dry~weight~"(g"~plant^-1~")"))+  theme_bw()+
+  labs(x=bquote(Measured~head~dry~weight~"(g"~plant^-1*")"),
+       y=bquote(Simulated~head~dry~weight~"(g"~plant^-1*")"))+  theme_bw()+
   theme(axis.line = element_line(color='black'),
     plot.background = element_blank(),
     panel.grid.minor = element_blank(),
@@ -62,7 +62,7 @@ ggplot()+geom_point(data=data, aes(x=DAT,y=shoot_mean,shape=season))+
   geom_line(data=sim, aes(x=days,y=shootDW,linetype=season))+
   scale_linetype_manual(values = LINES)+
   labs(x="Days after transplanting",       
-       y=bquote(Shoot~dry~weight~"(g"~plant^-1~")")) +
+       y=bquote(Shoot~dry~weight~"("*g~plant^-1*")")) +
   theme_bw()+
   theme(axis.line = element_line(color='black'),
     plot.background = element_blank(),
