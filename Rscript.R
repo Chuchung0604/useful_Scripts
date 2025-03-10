@@ -68,3 +68,13 @@ ggplot()+geom_point(data=data, aes(x=DAT,y=shoot_mean,shape=season))+
     plot.background = element_blank(),
     panel.grid.minor = element_blank(),
     panel.grid.major = element_blank())
+
+
+
+# anova
+library(agricolae)
+anova <- aov(headFW_row~treat, data=data2)
+summary(anova)
+lsd <- LSD.test(anova, "treat")
+plot(lsd)
+print(lsd$groups)
