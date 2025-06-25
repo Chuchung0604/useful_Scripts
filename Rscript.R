@@ -27,6 +27,12 @@ lettuceDW <- all %>% group_by(TrtID, TrtName,Town,Date0, Date, DAT, loc,transPla
             GDD0 = mean(GDD0), EDD0 = mean(EDD0), GDD026=mean(GDD026),
             .groups = 'drop')  %>%
   as.data.frame()
+# 如果有NA 則使用 na.rm=TRUE
+rice2 <- rice %>% group_by(loc,year,Year) %>% 
+  summarise(yield1 = mean(grainHa1,na.rm = TRUE), yield1_sd = sd(grainHa1,na.rm=TRUE),
+            yield2 = mean(grainHa2,na.rm = TRUE), yield2_sd = sd(grainHa2,na.rm=TRUE),
+            .groups = 'drop')  %>%
+  as.data.frame()
 
 ## ggplot2 畫圖 溫室氣體氣象
 ggplot()+
