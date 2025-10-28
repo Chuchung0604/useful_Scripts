@@ -84,3 +84,44 @@ summary(anova)
 lsd <- LSD.test(anova, "treat")
 plot(lsd)
 print(lsd$groups)
+
+# performance of model
+Performance <- function(sim, obs){
+  S <- sim
+  O <- obs
+  meanO <- mean(O)
+  n <- length(S)
+  wl = 0;   se = 0; dif = 0; sd = 0
+  
+  for(i in 1:n){
+    ##  difference from sim and obs (ME)
+    dif <- dif + (O[i]-S[i])
+    
+    ## square value of difference between sim and obs - se (RMSE,ME,EF,d)
+    se <- se + (O[i]-S[i])^2
+
+    ## calculate deviation square for willmott's index (d)
+    dist <- abs(O[i]-meanO)+abs(S[i]-meanO)
+    wl<- wl + dist^2
+
+    ## calculate the squared distance value of observed (EF)
+    sd <- sd + (O[i]-meanO)^2
+  }
+  ## calculate the parameter 
+  ME <- dif/n
+  RMSE <- sqrt(se/n)
+  d <- 1 - se/wl
+  EF <- 1- se/sd
+  
+  ## linear regression
+  lmout <- lm(S~O)
+  intercept <- summary(lmout)$coefficient[1]#intercept
+  slope <- summary(lmout)$coefficient[2]#slope
+  r2 <- summary(lmout)$r.squared
+  p <- summary(lmout)$coefficients[8]#p value
+  
+  return(c(n,round(RMSE,3), round(ME,3), round(d,3), round(EF,3), 
+           round(intercept,3), round(slope,3),round(r2,3),round(p,3))
+         )
+}
+
