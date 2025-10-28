@@ -125,3 +125,15 @@ Performance <- function(sim, obs){
          )
 }
 
+# table
+table.performance <- function(name1, vector1, name2, vector2, name3, vector3){
+  names <- c(name1, name2, name3)
+  n <- c(vector1[1], vector2[1], vector3[1])
+  RMSE <- c(vector1[2], vector2[2], vector3[2])
+  D <- c(vector1[4], vector2[4], vector3[4])
+  EF <- c(vector1[5], vector2[5], vector3[5])
+  R2 <- c(vector1[8], vector2[8], vector3[8])
+  
+  return(data.frame(names, n, RMSE,D, EF, R2))
+  }
+
