@@ -26,24 +26,10 @@ def readWea( weatype, year, lon,lat, doy):
         for row in df:
             if float(row[0]) == lon and float(row[1]) == lat:  
                 value =row[doy+2-1]
-                # +2 是lon 和lat
-                # -1 是 考慮python從0起算，DOY從1起算
-                # for d in range(yearNo + 2):
-                #     if d < 2: 
-                #         continue
-                #     value.append(float(row[d]))
-                #            #print(row[d])
-
     return value
 
 
-
-
-
-
-
 wea = pd.read_csv("TARIweather.csv", skiprows=1, encoding="big5")
-
 
 for index, row in wea.iterrows():
     year = row['Year']
@@ -54,7 +40,6 @@ for index, row in wea.iterrows():
         temp = readWea(weatype="平均溫", year=year, lon=120.7, lat=24.0, doy = DOY)
         wea.loc[index, 'Tavg']  = temp
 
-
     if pd.isnull(row["Tmax"]):         
         print(year, DOY, "Tmax")
         temp = readWea(weatype="最高溫", year=year, lon=120.7, lat=24.0, doy= DOY)
@@ -64,8 +49,5 @@ for index, row in wea.iterrows():
         print(year, DOY)
         temp = readWea(weatype="最低溫", year=year, lon=120.7, lat=24.0, doy=DOY)
         wea.loc[index, 'Tmin']  = temp
-
-    
-
+   
 wea.to_csv("TARIwea_fill.csv", header=True)    
-
