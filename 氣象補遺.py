@@ -26,6 +26,8 @@ def readWea( weatype, year, lon,lat, doy):
         for row in df:
             if float(row[0]) == lon and float(row[1]) == lat:  
                 value =row[doy+2-1]
+                # +2 是lon 和lat
+                # -1 是 考慮python從0起算，DOY從1起算
     return value
 
 
@@ -51,3 +53,4 @@ for index, row in wea.iterrows():
         wea.loc[index, 'Tmin']  = temp
    
 wea.to_csv("TARIwea_fill.csv", header=True)    
+
