@@ -1,2 +1,2 @@
 # useful_Scripts
-served as useful note for R, python
+Some of scripts in R or Python
